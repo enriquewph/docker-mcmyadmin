@@ -1,6 +1,4 @@
-FROM openjdk:18.0.1.1-jdk-slim-bullseye
-
-ARG DEBIAN_FRONTEND="noninteractive"
+FROM eclipse-temurin:21-jre-alpine
 
 ENV \
   APP_PATH="/app" \
@@ -14,17 +12,9 @@ VOLUME ${DATA_PATH}
 WORKDIR ${DATA_PATH}
 
 # Install required packages
-RUN \
-  apt-get update && \
-  apt-get install -y --no-install-recommends dumb-init procps locales unzip curl git screen gosu libgdiplus && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/* /var/tmp/*
-
-# setup environment
-RUN \
-  sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-  dpkg-reconfigure --frontend=noninteractive locales && \
-  update-locale LANG=en_US.UTF-8
+RUN apk update && \
+    apk add --no-cache dumb-init procps curl unzip git eudev libgdiplus screen su-exec fontconfig && \
+    rm -rf /var/cache/apk/*
 
 # download and unpack McMyAdmin
 RUN \
@@ -34,10 +24,23 @@ RUN \
   mkdir -vp $APP_PATH/config && \
   unzip /tmp/MCMA2_glibc26_2.zip -d $APP_PATH/config && \
   chmod -v a+rx $APP_PATH/config/MCMA2_Linux_x86_64 && \
-  rm -rf /tmp/*
+  rm -rf /tmp/* \
+  rm -rf $APP_PATH/config/McMyAdmin.exe $APP_PATH/config/MCMA_Service.exe 
 
 # Copy local files to image
 COPY app/ /app/
+
+# Install glibc compatibility for Alpine Linux (Following https://stackoverflow.com/a/66974607 with some modifications)
+ENV GLIBC_REPO=https://github.com/sgerrand/alpine-pkg-glibc
+ENV GLIBC_VERSION=2.30-r0
+
+RUN set -ex && \
+    apk --update add libstdc++ curl ca-certificates && \
+    for pkg in glibc-${GLIBC_VERSION} glibc-bin-${GLIBC_VERSION}; \
+        do curl -sSL ${GLIBC_REPO}/releases/download/${GLIBC_VERSION}/${pkg}.apk -o /tmp/${pkg}.apk; done && \
+    apk add --allow-untrusted --force-overwrite /tmp/*.apk && \
+    rm -v /tmp/*.apk && \
+    /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib
 
 # allow read and execution of the script
 RUN chmod -v a+rx $APP_PATH/*.sh

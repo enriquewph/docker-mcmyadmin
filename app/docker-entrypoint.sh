@@ -11,8 +11,15 @@ if ! id "$DOCKER_USER" >/dev/null 2>&1; then
     GROUP_ID=${PGID:-9001}
     echo "Starting with $USER_ID:$GROUP_ID (UID:GID)"
 
-    groupadd -f -g $GROUP_ID $DOCKER_GROUP
-    useradd --shell /bin/bash -u $USER_ID -g $GROUP_ID -o -c "" -m $DOCKER_USER
+    if ! getent group $DOCKER_GROUP >/dev/null; then
+        if ! getent group $GROUP_ID >/dev/null; then
+            addgroup -g $GROUP_ID $DOCKER_GROUP
+        else
+            DOCKER_GROUP=$(getent group $GROUP_ID | cut -d: -f1)
+        fi
+    fi
+
+    adduser -D -s /bin/sh -u $USER_ID -G $DOCKER_GROUP $DOCKER_USER
 
     chown -vR $USER_ID:$GROUP_ID $APP_PATH
     chmod -vR ug+rwx $APP_PATH
@@ -20,4 +27,4 @@ if ! id "$DOCKER_USER" >/dev/null 2>&1; then
 fi
 
 export HOME=/home/$DOCKER_USER
-exec gosu $DOCKER_USER $APP_PATH/app.sh
+exec su-exec $DOCKER_USER $APP_PATH/app.sh

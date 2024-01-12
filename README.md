@@ -1,41 +1,55 @@
 # docker-mcmyadmin
 
 <p>
-  <a href="https://github.com/tekgator/docker-mcmyadmin/blob/main/LICENSE" alt="License">
-    <img src="https://img.shields.io/github/license/tekgator/docker-mcmyadmin" />
+  <a href="https://github.com/enriquewph/docker-mcmyadmin/blob/main/LICENSE" alt="License">
+    <img src="https://img.shields.io/github/license/enriquewph/docker-mcmyadmin" />
   </a>
-  <img src="https://img.shields.io/github/languages/top/tekgator/docker-mcmyadmin" />  
-  <a href="https://hub.docker.com/r/tekgator/docker-mcmyadmin" alt="DockerPulls">
-    <img src="https://img.shields.io/docker/pulls/tekgator/docker-mcmyadmin" />
+  <img src="https://img.shields.io/github/languages/top/enriquewph/docker-mcmyadmin" />  
+  <a href="https://hub.docker.com/r/enriquewph/docker-mcmyadmin" alt="DockerPulls">
+    <img src="https://img.shields.io/docker/pulls/enriquewph/docker-mcmyadmin" />
   </a>
-  <a href="https://hub.docker.com/r/tekgator/docker-mcmyadmin/tags?page=1&ordering=last_updated" alt="DockerBuildStatus">
-    <img src="https://img.shields.io/docker/image-size/tekgator/docker-mcmyadmin/latest" />
+  <a href="https://hub.docker.com/r/enriquewph/docker-mcmyadmin/tags?page=1&ordering=last_updated" alt="DockerBuildStatus">
+    <img src="https://img.shields.io/docker/image-size/enriquewph/docker-mcmyadmin/latest" />
   </a>
-  <a href="https://github.com/tekgator/docker-mcmyadmin/actions/workflows/build-and-publish.yml" alt="BuildStatus">
-    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/tekgator/docker-mcmyadmin/build-and-publish.yml">
+  <a href="https://github.com/enriquewph/docker-mcmyadmin/actions/workflows/build-and-publish.yml" alt="BuildStatus">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/github/actions/workflow/status/enriquewph/docker-mcmyadmin/build-and-publish.yml">
   </a>
-  <a href="https://github.com/tekgator/docker-mcmyadmin/releases" alt="Releases">
-    <img src="https://img.shields.io/github/v/release/tekgator/docker-mcmyadmin" />
+  <a href="https://github.com/enriquewph/docker-mcmyadmin/releases" alt="Releases">
+    <img src="https://img.shields.io/github/v/release/enriquewph/docker-mcmyadmin" />
   </a>
-  <a href="https://github.com/tekgator/docker-mcmyadmin/releases" alt="Releases">
-    <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/tekgator/docker-mcmyadmin">
+  <a href="https://github.com/enriquewph/docker-mcmyadmin/releases" alt="Releases">
+    <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/enriquewph/docker-mcmyadmin">
   </a>
-  <a href="https://github.com/tekgator/docker-mcmyadmin/commit" alt="Commit">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/tekgator/docker-mcmyadmin">
+  <a href="https://github.com/enriquewph/docker-mcmyadmin/commit" alt="Commit">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/enriquewph/docker-mcmyadmin">
   </a>
 </p>
 
+
+> **Note:** This project is a fork from [tekgator/docker-mcmyadmin](https://github.com/tekgator/docker-mcmyadmin).
+
+> **Changes in this fork:**
+> - Switched from OPENJDK18 to [eclipse-temurin](https://hub.docker.com/_/eclipse-temurin) (OpenJDK v21)
+> - Switched from [debian](https://www.debian.org/index.html) based image to a lightweight and more performance saver [alpine](https://www.alpinelinux.org/) one.
+
+
+
+
 McMyAdmin Panel docker file to administrate and run all variants of a Java Minecraft Server.
 
-- Maintained by [Patrick Weiss](https://github.com/tekgator)
-- Problems and issues can be filed on the [Github repository](https://github.com/tekgator/docker-mcmyadmin/issues)
+- Maintained by [Patrick Weiss](https://github.com/enriquewph)
+- Problems and issues can be filed on the [Github repository](https://github.com/enriquewph/docker-mcmyadmin/issues)
 
 **Note:** As the below is overseen often, the default user/password for the McMyAdmin Login is **admin** / **pass123**
 
-## buy-me-a-coffee
-If I've helped you and you like some of my work, feel free to buy me a coffee ☕ (or more likely a beer 🍺)
-
-<a href='https://ko-fi.com/C0C7LO3V1' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+> ## McMyAdmin has been replaced by [AMP](https://cubecoders.com/AMP?utm_source=mcmyadmin)
+> **Please use AMP for new installations.**
+>
+> **McMyAdmin was replaced by AMP in 2018, new users should use AMP instead of McMyAdmin. This page remains here for legacy users.**
+>
+> **AMP features the same ease of use and simple installation, but supports more games, has more features, and will continue to receive support and updates. McMyAdmin 2 is no longer receiving any feature updates.**
+>
+> **Please use [CubeCoders AMP](https://cubecoders.com/AMP?utm_source=mcmyadmin) for any new installations where possible.**
 
 ## Description
 
@@ -45,8 +59,8 @@ Also this docker image tails the latest McMyAdmin log file to provide logging in
 
 ## Details
 
-* Utilizing Debian 11 Bullseye slim version 
-* OpenJDK-18 is used as it is required for some Minecraft plugins
+* ~~Utilizing Debian 11 Bullseye slim version~~ Utilizing a lightweight and more performance saver [Alpine Linux](https://www.alpinelinux.org/)
+* ~~OpenJDK-18 is used as it is required for some Minecraft plugins~~ [Eclipse Temurin](https://hub.docker.com/_/eclipse-temurin) (OpenJDK v21) is used as it provides better performance and security updates
 * McMyAdmin Minecraft web based admin panel
 * When the container stops firstly the world is saved and the server is properly shut down.
 * The McMyAdmin Admin panel runs under minecraft user on port tcp/8080
@@ -54,7 +68,7 @@ Also this docker image tails the latest McMyAdmin log file to provide logging in
 * Maps a volume so you are free to make changes to configuration of McMyAdmin and Minecraft
 * Includes GIT so the Spigot server jar can be build by McMyAdmin
 * Java.Memory defaults to 2GB RAM / recommended are at least 2GB RAM within a docker container
-* If you like to run the [Dynmap](https://dev.bukkit.org/projects/dynmap/files) just expose port tcp/8123 as well
+* If you like to run the [Dynmap](https://dev.bukkit.org/projects/dynmap/files) or [Squaremap](https://hangar.papermc.io/jmp/squaremap) plugins just expose port tcp/8123 as well
 
 ## Run
 
@@ -67,7 +81,7 @@ docker run -d \
   -p 25565:25565 \
   --stop-timeout 30 \
   --restart unless-stopped \
-  tekgator/docker-mcmyadmin:latest
+  enriquewph/docker-mcmyadmin:latest
 ``` 
 
 Map to local storage using an existing user on the host machine (get UID/GID via ID command)
@@ -119,7 +133,7 @@ docker run -d \
   -e EULA=1 \
   --restart unless-stopped  \
   --stop-timeout 30 \
-  tekgator/docker-mcmyadmin:latest
+  enriquewph/docker-mcmyadmin:latest
 ``` 
 
 #### Use with docker-compose:
@@ -128,7 +142,7 @@ A [sample](docker-compose.yml) docker-compose file can be found within the repos
 
 ```yml
   mcmyadmin:
-    image: tekgator/docker-mcmyadmin:latest
+    image: enriquewph/docker-mcmyadmin:latest
     container_name: mcmyadmin
     environment:
       PUID: 1000
